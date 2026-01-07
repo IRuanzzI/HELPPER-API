@@ -13,14 +13,16 @@ public class Prestador extends Usuario{
 
     private Double avaliacao;
 
-    private Integer CPF;
-
     private String cidade;
 
     @ElementCollection
     private List<String> servicos = new ArrayList<>();
 
     private String bioProfissional;
+
+    public Prestador() {
+
+    }
 
     public Double getAvaliacao() {
         return avaliacao;
@@ -30,13 +32,6 @@ public class Prestador extends Usuario{
         this.avaliacao = avaliacao;
     }
 
-    public Integer getCPF() {
-        return CPF;
-    }
-
-    public void setCPF(Integer CPF) {
-        this.CPF = CPF;
-    }
 
     public List<String> getServicos() {
         return servicos;

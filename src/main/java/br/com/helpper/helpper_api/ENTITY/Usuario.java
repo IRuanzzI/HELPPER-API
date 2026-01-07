@@ -11,6 +11,9 @@ public abstract class Usuario {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column
+    private Integer cpf;
+
     @Column(nullable = false)
     private String nome;
 
@@ -19,6 +22,10 @@ public abstract class Usuario {
 
     @Column(nullable = false)
     private String senha;
+
+    public Usuario() {
+
+    }
 
     public long getId() {
         return id;
@@ -50,5 +57,13 @@ public abstract class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Integer getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(Integer cpf) {
+        this.cpf = cpf;
     }
 }
