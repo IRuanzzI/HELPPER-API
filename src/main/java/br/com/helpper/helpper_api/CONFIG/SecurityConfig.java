@@ -52,6 +52,8 @@ public class SecurityConfig {
                 // Configuração de autorização
                 .authorizeHttpRequests(auth -> auth
                         // Endpoints públicos (sem autenticação)
+                        .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
+
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/auth/**").authenticated()
                         .requestMatchers("/api/public/**").permitAll()
@@ -62,9 +64,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/prestador").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/prestador").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/contratante").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/contratante").permitAll()
+                        .requestMatchers(HttpMethod.POST ,"/contratante").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
                         .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/usuarios/**").permitAll()
                         .requestMatchers("/api/arquivos/usuarios/**").permitAll()
                         .requestMatchers("/arquivos/usuarios/**").permitAll()
 

@@ -13,13 +13,14 @@ import br.com.helpper.helpper_api.SERVICES.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @CrossOrigin(origins = "*") // Configurar origens específicas em produção
 public class AuthController {
 
@@ -49,11 +50,14 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+
+
     /**
      * Verifica se email está disponível
      * GET /api/auth/check-email?email=teste@email.com
      */
     @GetMapping("/check-email")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<Map<String, Boolean>> verificarEmail(@RequestParam String email) {
         boolean disponivel = authService.emailDisponivel(email);
 

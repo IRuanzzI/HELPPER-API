@@ -14,7 +14,9 @@ import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -54,6 +56,17 @@ public class UsuarioController {
     public ResponseEntity<UsuarioDTO> buscarPorId(@PathVariable Long id) {
         UsuarioDTO usuario = usuarioService.buscarPorId(id);
         return ResponseEntity.ok(usuario);
+    }
+    @GetMapping("/status")
+    public ResponseEntity<Map<String, Object>> userStatus() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated() && !(auth instanceof AnonymousAuthenticationToken)) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("loggedIn", true);
+            response.put("username", auth.getName());
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity.status(401).build();
     }
 
     /**
